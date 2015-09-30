@@ -5,7 +5,7 @@
   "content_scripts": [ {
     "css": [ "iso.css" ],
     "js": [ "jquery.min.js", "obelisk.min.js", "iso.js" ],
-    "matches": [ "http://*/*", "https://*/*" ]
+    "matches": [ "http://github.com/*", "https://github.com/*" ]
   }],
   "permissions": [
     "storage"
