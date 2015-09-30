@@ -166,7 +166,9 @@ Iso = (function() {
 })();
 
 $(document).ready(function() {
-  var iso, target;
-  target = document.querySelector('.js-calendar-graph');
-  return iso = new Iso(target);
+  setTimeout(function(){
+    var iso, target;
+    target = document.querySelector('.js-calendar-graph');
+    return iso = new Iso(target);
+  },2000);
 });
