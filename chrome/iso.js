@@ -165,7 +165,7 @@ Iso = (function() {
 
 })();
 
-$(window).load(function() {
+$(document).ready(function() {
   var iso, target;
   target = document.querySelector('.js-calendar-graph');
   return iso = new Iso(target);
