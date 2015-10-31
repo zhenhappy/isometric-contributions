@@ -61,7 +61,7 @@ Iso = (function() {
   };
 
   Iso.prototype.initUI = function() {
-    var contributionsBox, html, insertLocation, toggleClass, toggleSetting;
+    var contributionsBox, html, insertLocation, toggleClass;
     contributionsBox = ($('#contributions-calendar')).closest('.boxed-group');
     insertLocation = (($('#contributions-calendar')).closest('.boxed-group')).find('h3');
     toggleClass = '';
@@ -81,16 +81,19 @@ Iso = (function() {
       }
       ($('.ic-toggle-option')).removeClass('active');
       ($(this)).addClass('active');
-      return localStorage.toggleSetting = option;
+      return chrome.storage.local.set({
+        toggleSetting: option
+      });
     });
-    toggleSetting = localStorage.toggleSetting;
-    if (toggleSetting != null) {
-      ($(".ic-toggle-option." + toggleSetting)).addClass('active');
-      contributionsBox.addClass("ic-" + toggleSetting);
-    } else {
-      ($('.ic-toggle-option.cubes')).addClass('active');
-      (contributionsBox.removeClass('ic-squares')).addClass('ic-cubes');
-    }
+    chrome.storage.local.get('toggleSetting', function(result) {
+      if (result.toggleSetting != null) {
+        ($(".ic-toggle-option." + result.toggleSetting)).addClass('active');
+        return contributionsBox.addClass("ic-" + result.toggleSetting);
+      } else {
+        ($('.ic-toggle-option.cubes')).addClass('active');
+        return (contributionsBox.removeClass('ic-squares')).addClass('ic-cubes');
+      }
+    });
     html = "<span class=\"ic-footer\">\n  <a href=\"#\" class=\"ic-2d-toggle\">Show normal chart below ▾</a>\n</span>";
     ($(html)).appendTo($('.ic-contributions-wrapper'));
     ($('.ic-2d-toggle')).click(function(e) {
@@ -140,19 +143,19 @@ Iso = (function() {
     return color = (function() {
       switch (fill) {
         case 'rgb(238, 238, 238)':
-        case '#eeeeee':
+        case '#eee':
           return COLORS[0];
         case 'rgb(214, 230, 133)':
-        case '#d6e685':
+        case '#FFEE4A':
           return COLORS[1];
         case 'rgb(140, 198, 101)':
-        case '#8cc665':
+        case '#FFC501':
           return COLORS[2];
         case 'rgb(68, 163, 64)':
-        case '#44a340':
+        case '#FE9600':
           return COLORS[3];
         case 'rgb(30, 104, 35)':
-        case '#1e6823':
+        case '#03001C':
           return COLORS[4];
       }
     })();
@@ -162,8 +165,10 @@ Iso = (function() {
 
 })();
 
-$(function() {
-  var iso, target;
-  target = document.querySelector('.js-calendar-graph');
-  return iso = new Iso(target);
+$(document).ready(function() {
+  setTimeout(function(){
+    var iso, target;
+    target = document.querySelector('.js-calendar-graph');
+    return iso = new Iso(target);
+  },2000);
 });

@@ -143,19 +143,19 @@ Iso = (function() {
     return color = (function() {
       switch (fill) {
         case 'rgb(238, 238, 238)':
-        case '#eeeeee':
+        case '#eee':
           return COLORS[0];
         case 'rgb(214, 230, 133)':
-        case '#d6e685':
+        case '#FFEE4A':
           return COLORS[1];
         case 'rgb(140, 198, 101)':
-        case '#8cc665':
+        case '#FFC501':
           return COLORS[2];
         case 'rgb(68, 163, 64)':
-        case '#44a340':
+        case '#FE9600':
           return COLORS[3];
         case 'rgb(30, 104, 35)':
-        case '#1e6823':
+        case '#03001C':
           return COLORS[4];
       }
     })();
